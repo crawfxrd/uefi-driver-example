@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: CC-PDM-1.0
+# SPDX-FileCopyrightText: NONE
+
+.gitattributes export-ignore
+.gitignore export-ignore

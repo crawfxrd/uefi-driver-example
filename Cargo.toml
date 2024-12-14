@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+# SPDX-FileCopyrightText: 2024 System76, Inc.
+
+[package]
+name = "uefi-driver-example"
+version = "0.0.1"
+edition = "2021"
+description = "Example UEFI driver"
+license = "BSD-2-Clause-Patent"
+publish = false
+
+[profile.dev]
+opt-level = 1
+split-debuginfo = "packed"
+
+[profile.release]
+debug = true
+lto = true
+opt-level = 3
+split-debuginfo = "packed"
+
+[dependencies]
+log = "0.4.22"
+uefi = { version = "0.33.0", features = ["panic_handler", "logger"] }
+uefi-raw = { version = "0.9.0" }
+
+[patch.crates-io]
+uefi = { git = "https://github.com/rust-osdev/uefi-rs.git" }
+uefi-raw = { git = "https://github.com/rust-osdev/uefi-rs.git" }
+uefi-macros = { git = "https://github.com/rust-osdev/uefi-rs.git" }
