@@ -7,11 +7,14 @@
 #![no_std]
 
 mod binding;
+mod component;
 
 use crate::binding::DRIVER_BINDING;
+use crate::component::COMPONENT_NAME;
 use uefi::prelude::*;
 use uefi::proto::loaded_image::LoadedImage;
 use uefi::{guid, Guid};
+use uefi_raw::protocol::driver::ComponentName2Protocol;
 use uefi_raw::protocol::driver::DriverBindingProtocol;
 
 // XXX: Get from INF? Generate INF using this?
@@ -32,6 +35,13 @@ extern "efiapi" fn unload(image: Handle) -> Status {
     }
 
     unsafe {
+        boot::uninstall_protocol_interface(
+            image,
+            &ComponentName2Protocol::GUID,
+            core::ptr::addr_of!(COMPONENT_NAME).cast(),
+        )
+        .unwrap();
+
         boot::uninstall_protocol_interface(
             image,
             &DriverBindingProtocol::GUID,
@@ -56,6 +66,13 @@ fn main() -> Status {
             Some(image),
             &DriverBindingProtocol::GUID,
             core::ptr::addr_of!(DRIVER_BINDING).cast(),
+        )
+        .unwrap();
+
+        boot::install_protocol_interface(
+            Some(image),
+            &ComponentName2Protocol::GUID,
+            core::ptr::addr_of!(COMPONENT_NAME).cast(),
         )
         .unwrap();
     }
