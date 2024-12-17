@@ -3,4 +3,3 @@
 
 [build]
 target = "x86_64-unknown-uefi"
-rustflags = ["-Clink-arg=/subsystem:efi_boot_service_driver"]
