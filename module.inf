@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+# SPDX-FileCopyrightText: 2025 System76, Inc.
+
+# UEFI driver example
+
+[Defines]
+  INF_VERSION       = 1.28
+  BASE_NAME         = DriverExample
+  FILE_GUID         = e85d2ad7-a062-4fbd-b704-d12e9b0595eb
+  MODULE_TYPE       = UEFI_DRIVER
+  VERSION_STRING    = 0.1
+
+[Binaries.X64]
+  PE32|target/x86_64-unknown-uefi/release/uefi-driver-example.efi|*
+
+[Binaries.AARCH64]
+  PE32|target/aarch64-unknown-uefi/release/uefi-driver-example.efi|*
