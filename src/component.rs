@@ -24,7 +24,7 @@ unsafe extern "efiapi" fn get_driver_name(
     }
 
     // TODO: Implement lookup to handle multiple languages.
-    *driver_name = DRIVER_NAME.to_u16_slice_with_nul().as_ptr();
+    unsafe { *driver_name = DRIVER_NAME.to_u16_slice_with_nul().as_ptr() };
     Status::SUCCESS
 }
 
